@@ -2,7 +2,7 @@
   "name": "contacts-list-app",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://sharlxl.github.io/contacts-list-app/",
+  "homepage": "https://sharlxl.github.io/contacts-list-app",
   "type": "module",
   "scripts": {
     "dev": "vite",

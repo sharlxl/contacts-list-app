@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react';
-
-const LocalStorageKeys = {
-  THEME: 'THEME',
-};
+import { LocalStorageKeys } from './data/common';
 
 const useTheme = () => {
   const [darkMode, setDarkMode] = useState<boolean | null>(null);
@@ -11,13 +8,13 @@ const useTheme = () => {
     const storedTheme = localStorage.getItem(LocalStorageKeys.THEME);
     if (storedTheme !== null) {
       // If there's a stored preference, use it
-      setDarkMode(JSON.parse(storedTheme));
+      setDarkMode(JSON.parse(storedTheme) as boolean);
     } else {
       // If no stored preference, use the system's color scheme
-      const prefersDark = window.matchMedia(
+      const isDarkMode = window.matchMedia(
         '(prefers-color-scheme: dark)'
       ).matches;
-      setDarkMode(prefersDark);
+      setDarkMode(isDarkMode);
     }
   }, []);
 

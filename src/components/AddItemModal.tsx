@@ -2,7 +2,6 @@ import { useState } from 'react';
 import ModalWrapper from './ModalWrapper';
 import FormInput from './FormInput';
 import { useContacts } from '../context/contactslistContext';
-import { LocalStorageKeys } from '../data/common';
 
 interface AddItemModalProps {
   showModal: boolean;
@@ -19,6 +18,7 @@ const AddItemModal: React.FC<AddItemModalProps> = ({
   showModal,
   setShowModal,
 }) => {
+  const { addContact } = useContacts();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -40,13 +40,13 @@ const AddItemModal: React.FC<AddItemModalProps> = ({
       mobileNum: '',
     };
 
-    // Name validation - ensure that its not empty or whitespaces only
+    //ensure that its not empty or whitespaces only
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
       isValid = false;
     }
 
-    // Email validation - check for empty/whitespaces and valid email format
+    //check for empty/whitespaces and valid email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
@@ -56,7 +56,7 @@ const AddItemModal: React.FC<AddItemModalProps> = ({
       isValid = false;
     }
 
-    // Phone validation - make sure its not blank and its only integers and 8 digit(SG number)
+    //make sure its not blank and its only integers and 8 digit(SG number)
     const phoneRegex = /^\d{8}$/;
     if (!formData.mobileNum.trim()) {
       newErrors.mobileNum = 'Phone number is required';
@@ -69,19 +69,12 @@ const AddItemModal: React.FC<AddItemModalProps> = ({
     setErrors(newErrors);
     return isValid;
   };
-  const { contacts, setContacts } = useContacts();
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (validateForm()) {
       // if the formdata are all valid, to update the state and LS
       // reset form and close modal
-      const updatedContacts = [formData, ...contacts];
-      // update the state so that frontend will show the changes and update LS to ensure both are updated.
-      setContacts(updatedContacts);
-      localStorage.setItem(
-        LocalStorageKeys.CONTACTS,
-        JSON.stringify(updatedContacts)
-      );
+      addContact(formData);
       setFormData({ name: '', email: '', mobileNum: '' });
       setShowModal(false);
     }

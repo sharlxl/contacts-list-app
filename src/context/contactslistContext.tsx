@@ -11,6 +11,7 @@ export interface ContactProps {
 interface ContactsListContextType {
   contacts: ContactProps[];
   setContacts: (contacts: ContactProps[]) => void;
+  addContact: (newContact: ContactProps) => void;
 }
 
 interface ContactsListProviderProps {
@@ -35,7 +36,7 @@ export const ContactsListProvider: React.FC<ContactsListProviderProps> = ({
     const storedContacts = localStorage.getItem(LocalStorageKeys.CONTACTS);
 
     if (storedContacts) {
-      setContacts(JSON.parse(storedContacts));
+      setContacts(JSON.parse(storedContacts) as ContactProps[]);
     } else {
       setContacts(sampleData);
       localStorage.setItem(
@@ -45,8 +46,17 @@ export const ContactsListProvider: React.FC<ContactsListProviderProps> = ({
     }
   }, []);
 
+  const addContact = (newContact: ContactProps) => {
+    const updatedContacts = [newContact, ...contacts];
+    setContacts(updatedContacts);
+    localStorage.setItem(
+      LocalStorageKeys.CONTACTS,
+      JSON.stringify(updatedContacts)
+    );
+  };
+
   return (
-    <ContactListContext.Provider value={{ contacts, setContacts }}>
+    <ContactListContext.Provider value={{ contacts, setContacts, addContact }}>
       {children}
     </ContactListContext.Provider>
   );
@@ -55,7 +65,9 @@ export const ContactsListProvider: React.FC<ContactsListProviderProps> = ({
 export const useContacts = (): ContactsListContextType => {
   const context = useContext(ContactListContext);
   if (!context) {
-    throw new Error('useBookmarks must be used within a BookmarksProvider');
+    throw new Error(
+      'useContacts must be used within a ContactListContextProvider'
+    );
   }
   return context;
 };

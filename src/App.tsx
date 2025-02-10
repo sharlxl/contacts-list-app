@@ -10,7 +10,7 @@ function App() {
   const { darkMode, toggleDarkMode } = useTheme();
 
   return (
-    <div className='w-full min-w-[100svw] h-full min-h-[100svh]'>
+    <div className='w-full min-w-[100vw] h-full min-h-[100vh]'>
       <ContactsListProvider>
         <TopMenuBar
           setShowModal={setShowModal}
