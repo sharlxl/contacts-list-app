@@ -1,5 +1,10 @@
+import LightIcon from '../assets/sun.svg';
+import DarkIcon from '../assets/moon.svg';
+
 interface TopMenuBarProps {
   setShowModal: (arg0: boolean) => void;
+  darkMode: boolean | null;
+  toggleDarkMode: () => void;
 }
 
 interface ButtonProps {
@@ -7,11 +12,17 @@ interface ButtonProps {
   children: React.ReactNode;
 }
 
-const TopMenuBar: React.FC<TopMenuBarProps> = ({ setShowModal }) => {
+const TopMenuBar: React.FC<TopMenuBarProps> = ({
+  setShowModal,
+  darkMode,
+  toggleDarkMode,
+}) => {
   return (
     <div className='flex gap-2 bg-neutral-200 dark:bg-neutral-900 p-2 justify-between'>
       <Button onClick={() => setShowModal(true)}>Add Item</Button>
-      <Button>Light/dark</Button>
+      <Button onClick={toggleDarkMode}>
+        <img src={darkMode ? LightIcon : DarkIcon} alt='dark/light mode icon' />
+      </Button>
     </div>
   );
 };
