@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -7,10 +9,30 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #f7f7f7;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+:root::-webkit-scrollbar {
+  display: none; /* Hides the scrollbar, Chrome & Safari */
+}
+
+html.dark {
+  --background-color: #242424; /* Dark background color */
+  --text-color: rgba(255, 255, 255, 0.87); /* Dark text color */
+}
+
+body {
+  background-color: var(
+    --background-color,
+    #f7f7f7
+  ); /* Fallback to light mode if dark class is not applied */
+  color: var(
+    --text-color,
+    rgba(0, 0, 0, 0.87)
+  ); /* Fallback to dark text color */
 }

@@ -1,0 +1,22 @@
+[
+  {
+    "name": "John Doe",
+    "mobileNum": "12345678",
+    "email": "john.d@email.com"
+  },
+  {
+    "name": "Jane doe",
+    "mobileNum": "23456789",
+    "email": "jane.d@email.com"
+  },
+  {
+    "name": "Natsu",
+    "mobileNum": "34567891",
+    "email": "natsu@email.com"
+  },
+  {
+    "name": "Kuromi",
+    "mobileNum": "45678901",
+    "email": "kuromi@email.com"
+  }
+]
