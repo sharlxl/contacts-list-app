@@ -1,11 +1,9 @@
 import React from 'react';
-import { ContactProps } from '../hooks/useContacts';
+import { ContactProps, useContacts } from '../context/contactslistContext';
 
-interface ContactsTableProps {
-  contacts: ContactProps[];
-}
+const ContactsTable: React.FC = () => {
+  const { contacts } = useContacts();
 
-const ContactsTable: React.FC<ContactsTableProps> = ({ contacts }) => {
   return (
     <div className='p-4'>
       <h1 className='text-2xl font-bold mb-4'>Contacts List</h1>

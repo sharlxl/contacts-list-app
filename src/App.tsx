@@ -1,12 +1,19 @@
+import { useState } from 'react';
 import ContactsTable from './components/ContactsTable';
-import { useContacts } from './hooks/useContacts';
+import TopMenuBar from './components/TopMenuBar';
+import AddItemModal from './components/AddItemModal';
+import { ContactsListProvider } from './context/contactslistContext';
 
 function App() {
-  const { contacts } = useContacts();
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <>
-      <ContactsTable contacts={contacts} />
+      <ContactsListProvider>
+        <TopMenuBar setShowModal={setShowModal} />
+        <ContactsTable />
+        <AddItemModal showModal={showModal} setShowModal={setShowModal} />
+      </ContactsListProvider>
     </>
   );
 }
